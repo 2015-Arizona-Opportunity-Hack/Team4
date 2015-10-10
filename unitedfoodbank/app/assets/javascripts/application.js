@@ -13,4 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require libs/bootstrap
+
+$(document).ready(function(){
+	alert(123111);
+});

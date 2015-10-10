@@ -1,4 +1,5 @@
-class TanmayController < ActionController::Base
+class FieldController < ActionController::Base
+
 	def index
 		# fetch from fb
 		#  manipultae data
