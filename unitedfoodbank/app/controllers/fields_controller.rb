@@ -29,7 +29,7 @@ class FieldsController < ActionController::Base
 		respond_to do |format|
 			if @field.save
 				flash[:success_message] = "Field was successfully created."
-				format.html { redirect_to edit_field_path(@field)}
+				format.html { redirect_to fields_path}
 				format.json { render json: @field, status: :created}
 			else
 				format.html { render action: "new" }
