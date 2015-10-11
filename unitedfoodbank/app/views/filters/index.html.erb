@@ -1,0 +1,16 @@
+<div class="filter">
+<select class="branch" name="branch" style="width:200px;">
+  <option value="">Select Volunteer Type</option>
+  <option value="Individual">Individual</option>
+  <option value="Corporate">Corporate</option>
+  <option value="Social">Social</option>
+</select>
+<input type="text" name="daterange" class="daterangepicker data" id="inputEmail3" placeholder="Date Range" />
+<div class="btn btn-primary generate">Generate</div>
+<div class="report">
+</div>
+</div>
+<%= javascript_tag do %>
+    $(document).ready(function(){
+    });
+<% end %>

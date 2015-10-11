@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Unitedfoodbank</title>
+  <%= stylesheet_link_tag    'fields', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'filters', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div id="content" class="col-md-10 col-sm-11">
+  <%= yield %>
+</div>
+</body>
+</html>
