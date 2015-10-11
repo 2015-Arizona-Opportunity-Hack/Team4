@@ -6,6 +6,18 @@
   <option value="Social">Social</option>
 </select>
 <input type="text" name="daterange" class="daterangepicker data" id="inputEmail3" placeholder="Date Range" />
+  <select class="corp" name="corp" style="width:200px;">
+    <option value="">Select Corporate</option>
+    <% @corporates.each do |volunteer| %>
+          <option value="<%= volunteer.name %>"><%= volunteer.name%></option>
+    <%end%>
+  </select>
+  <select class="social" name="social" style="width:200px;">
+    <option value="">Select Social</option>
+    <% @socials.each do |volunteer| %>
+        <option value="<%= volunteer.name %>"><%= volunteer.name%></option>
+    <%end%>
+  </select>
 <div class="btn btn-primary generate">Generate</div>
 <div class="report">
 </div>
