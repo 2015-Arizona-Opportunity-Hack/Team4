@@ -10,6 +10,18 @@
 
 $(document).ready(function(){
     _reports = {}
+    _reports.fetch = function(){
+        params = {}
+        params.branch = $('.branch').val();
+        params.date = $('.daterangepicker').val();
+        var xmlRequest = $.ajax({
+            url: 'filters/get_data',
+            type:"GET",
+            dataType: "json",
+            data: params
+        });
+        return xmlRequest;
+    };
     _reports.report = function() {
         var _i = {};
         var options = {};
@@ -31,7 +43,44 @@ $(document).ready(function(){
             }
             _i.xAxis = {range: 30 * 24 * 3600 * 1000};
         }
+
+        _i.process = function(){
+            html = '<table class="table table-hover">\
+                <tr>\
+                <th width="20%">Phone</th>\
+                <th width="20%">Email</th>\
+                <th width="20%" class="actions">Actions</th>\
+                </tr>';
+            for (x=0; x<_i.data.length; x++) {
+                var element = _i.data[x];
+                console.log(element);
+                html += '<tr>\
+                     <td>'+element.phone+'</td>\
+                    <td>'+element.email+'</td>\
+                        <td class="actions">\
+                            <a href="http://localhost:3000/volunteers/'+element._id.$oid+'" class="btn btn-small btn-success">More info</a>\
+                        </td>\
+                    </tr>';
+            }
+            html += '</table>';
+            $('.report').html(html);
+        };
+
+        _i.generate = function () {
+            _reports.fetch().done(function (one, two, three) {
+                try {
+                    _i.data = one;
+                    console.log(_i.data);
+                    _i.process();
+                } catch (e) {
+                    console.log(e);
+                }
+            });
+        }
+        _i.generate();
     }
+
+
     var date_options = {
         format: 'DD/MM/YYYY',
         startDate: moment().subtract("days", 30).format("DD/MM/YYYY"),
