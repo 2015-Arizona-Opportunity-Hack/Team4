@@ -23,12 +23,19 @@ class VolunteersController < ActionController::Base
 	def new
 		@volunteer = Volunteer.new
 		@fields = Field.where(is_active: true)
+		@is_show = false
+	end
+
+	def show
+		@volunteer = Volunteer.find(params[:id])
+		@fields = Field.where(is_active: true)
+		@is_show = true
 	end
 
 	private
 
 	def volunteer_params
-		params.require(:volunteer).permit(:email, :phone, :dynamic_fields)
+		params.require(:volunteer).permit!
 	end
 	
 end
