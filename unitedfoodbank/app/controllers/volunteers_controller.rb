@@ -31,6 +31,11 @@ class VolunteersController < ActionController::Base
 	end
 
 	def new
+		if(params[:parent_id].present?)
+			@parent = Volunteer.find(params[:parent_id])
+		else
+			@parent = nil
+		end
 		@volunteer = Volunteer.new
 		@fields = Field.where(is_active: true)
 		@is_show = false

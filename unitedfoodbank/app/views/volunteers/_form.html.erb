@@ -1,4 +1,17 @@
 <%= form_for [@volunteer] ,html: {role: "form"} do |f| %>
+	<% if(@parent.present?) %>
+		<% if(@parent.type=="corporate") %>
+			<div class="form-group">
+				<b>Corporate Group:</b> <%= @parent.name %>
+				<%= hidden_field_tag 'volunteer[corporate_parent_id]', @parent.id %>
+			</div>
+		<% elsif(@parent.type=="social") %>
+			<div class="form-group">
+				<b>Social Group:</b> <%= @parent.name %>
+				<%= hidden_field_tag 'volunteer[social_parent_id]', @parent.id %>
+			</div>
+		<% end %>
+	<% end %>
 	<div class="form-group">
 		<%= f.label :phone %><br />
 		<%= f.text_field :phone, class: "form-control required", 'data-name': "phone" %>
@@ -6,6 +19,10 @@
 	<div class="form-group">
 		<%= f.label :email %>
 		<%= f.text_field :email, class: "form-control required", 'data-name': "email" %>
+	</div>
+	<div class="form-group">
+		<%= f.label :name %>
+		<%= f.text_field :name, class: "form-control required", 'data-name': "name" %>
 	</div>
 	<div class="form-group">
 		<%= f.label :type %>
