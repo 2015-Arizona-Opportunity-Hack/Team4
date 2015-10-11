@@ -14,6 +14,9 @@ $(document).ready(function(){
         params = {}
         params.branch = $('.branch').val();
         params.date = $('.daterangepicker').val();
+        params.corp = $('.corp').val();
+        params.social = $('.social').val();
+
         var xmlRequest = $.ajax({
             url: 'filters/get_data',
             type:"GET",
@@ -27,8 +30,8 @@ $(document).ready(function(){
         var options = {};
         var start_date, end_date;
         _i.init_date = function () {
-            start_date = moment().subtract("months", 3).format("DD/MM/YYYY");
-            end_date = moment().format("DD/MM/YYYY");
+            start_date = moment().subtract("months", 3).format("MM/DD/YYYY");
+            end_date = moment().format("MM/DD/YYYY");
             options = {
                 startDate: start_date,
                 endDate: end_date,
