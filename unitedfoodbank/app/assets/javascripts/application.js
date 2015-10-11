@@ -14,7 +14,3 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require libs/bootstrap
-
-$(document).ready(function(){
-	alert(123111);
-});

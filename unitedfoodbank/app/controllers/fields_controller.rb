@@ -1,4 +1,4 @@
-class FieldController < ActionController::Base
+class FieldsController < ActionController::Base
 
 	def index
 		# fetch from fb

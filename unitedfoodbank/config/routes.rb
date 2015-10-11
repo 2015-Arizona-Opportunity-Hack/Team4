@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'field#index'
+  root 'home#index'
+  resources :fields
 
   # Example of regular route:
   #   get 'tanmay' => 'test#meth'
