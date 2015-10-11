@@ -8,6 +8,14 @@
 </head>
 <body>
 
+<div class="navbar navbar-default" role="navigation" id="main_navigation">
+	<ul class="nav navbar-nav">
+		<li data-controller="fields" class="default_tabs">
+			<a href="<%= root_path %>">Homepage</a>
+		</li>
+	</ul>
+</div>
+
 <div id="content" class="col-md-10 col-sm-11">
 	<%= yield %>
 </div>

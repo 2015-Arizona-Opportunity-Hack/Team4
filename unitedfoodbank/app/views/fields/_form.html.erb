@@ -16,10 +16,6 @@
 		<%= f.text_field :required, class: "form-control" %>
 	</div>
 	<div class="form-group">
-		<%= f.label :tab, "Which Tab should it render to?" %>
-		<%= f.text_field :tab, class: "form-control" %>
-	</div>
-	<div class="form-group">
 		<%= f.label :is_active, "Active?" %>
 		<%= f.text_field :is_active, class: "form-control" %>
 	</div>
@@ -68,7 +64,6 @@
 		$('input[name="field[include_in_social]"]').select2({
 			multiple: false,
 			data: [{id: "false", text: "No"}, {id: "true", text: "Yes"}]
-			data: [{id: "boolean", text: "Boolean"}, {id: "text", text: "Text"}, {id: "text_area", text: "Text Area"}, {id: "single_select", text: "Single Select"}, {id: "multi_select", text: "Multi Select"}]
 		});
 		$('input[name="field[required]"]').select2({
 			multiple: false,

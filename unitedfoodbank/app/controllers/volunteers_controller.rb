@@ -11,7 +11,7 @@ class VolunteersController < ActionController::Base
 		respond_to do |format|
 			if @volunteer.save
 				flash[:success_message] = "Volunteer was successfully created."
-				format.html { redirect_to volunteers_path }
+				format.html { redirect_to root_path }
 				format.json { render json: @volunteer, status: :created}
 			else
 				flash[:error] = "Volunteer already present"
