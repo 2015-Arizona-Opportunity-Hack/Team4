@@ -1,1 +1,19 @@
-index.html.erb
+<table class="table table-hover">
+	<tr>
+		<th width="20%">Phone</th>
+		<th width="20%">Email</th>
+		<th width="20%" class="actions">Actions</th>
+	</tr>
+	<% @volunteers.each do |volunteer| %>
+		<tr>
+			<td><%= volunteer.phone %></td>
+			<td><%= volunteer.email %></td>
+			<td class="actions">
+				<%= link_to "More Info", volunteer_path(volunteer), class: "btn btn-small btn-success" %>
+			</td>
+		</tr>
+	<%end%>
+</table>
+<div class="pull-right">
+	<%= will_paginate @volunteers %>
+</div>

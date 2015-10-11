@@ -4,6 +4,6 @@ class Volunteer
 
  	field :phone, type: String
 	field :email, type: String
-	field :dynamic_fields, type: Array, default: [] # example: [{key: 'address', value: 'fdf'}]
+	field :dynamic_fields, type: Hash, default: {} # example: {key: 'address', value: 'fdf'}
 
 end
