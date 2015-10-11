@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :fields
 
+  resources :volunteers
+
   # Example of regular route:
   #   get 'tanmay' => 'test#meth'
 

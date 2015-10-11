@@ -1,4 +1,4 @@
-class FieldsController < ActionController::Base
+class VolunteersController < ActionController::Base
 
 	def index
 	end
