@@ -5,10 +5,14 @@ class HomeController < ActionController::Base
 	end
 	def search
 		x = Volunteer.where(email: params[:email], phone: params[:phone])
-		if( x.count == 0)
+		@volunteer_type = "individual"
+		if( x.count == 0) then
 			respond_to do |format|
 				format.html {redirect_to new_volunteer_path}
 			end
+		elsif( params[:vol_type] == "2" || params[:vol_type] == "3")
+			@volunteer_type = "non_individual"
+			@link = x.first.generate_link
 		end
 	end
 

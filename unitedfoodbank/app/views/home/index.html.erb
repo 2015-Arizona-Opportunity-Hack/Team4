@@ -1,9 +1,13 @@
 <%= form_tag("/search", method: "get") do %>
     <div align="center"><H1>Register for Event</H1></div>
     <div class="form-group">
-    <%= label_tag(:email, "Email:") %>
-    <%= text_field_tag(:email, nil, class: "form-control") %>
-    </div> <br/>
+        <%= label_tag(:vol_type, "Volunteer Type:") %>
+        <%= select_tag(:vol_type, options_for_select([['Individual', 1], ['Corporate', 2],['Social', 3]],1), class: "form-control" ) %>
+    </div>
+    <div class="form-group">
+        <%= label_tag(:email, "Email:") %>
+        <%= text_field_tag(:email, nil, class: "form-control") %>
+    </div>
     <div class="form-group">
         <%= label_tag(:phone, "Mobile number:") %>
         <%= text_field_tag(:phone, nil, class: "form-control")%>

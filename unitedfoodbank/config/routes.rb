@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :fields
 
-  resources :volunteers
+  resources :volunteers do
+    member do
+      get 'success'
+    end
+  end
 
   resources :filters
   get 'search' => 'home#search'

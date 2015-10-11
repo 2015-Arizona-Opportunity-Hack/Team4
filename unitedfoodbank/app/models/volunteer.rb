@@ -9,4 +9,9 @@ class Volunteer
 
 	validates_uniqueness_of :phone
 	validates_uniqueness_of :email
+
+	def generate_link
+		link = "http://localhost:3000/volunteers/new?parent_id=#{self.id}"
+		return link
+	end
 end
