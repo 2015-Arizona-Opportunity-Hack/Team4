@@ -1,0 +1,231 @@
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="pill" href="#home">Personal Info</a></li>
+  <li><a data-toggle="pill" href="#menu1">Additional info</a></li>
+  <li><a data-toggle="pill" href="#menu2">Preferences</a></li>
+</ul>
+
+<div class="tab-content">
+	<div id="home" class="tab-pane fade in active tab0">
+		<%= form_for [@volunteer] ,html: {role: "form"} do |f| %>
+			<% if(@parent.present?) %>
+				<% if(@parent.type=="corporate") %>
+					<div class="form-group">
+						<b>Corporate Group:</b> <%= @parent.name %>
+						<%= hidden_field_tag 'volunteer[corporate_parent_id]', @parent.id %>
+					</div>
+				<% elsif(@parent.type=="social") %>
+					<div class="form-group">
+						<b>Social Group:</b> <%= @parent.name %>
+						<%= hidden_field_tag 'volunteer[social_parent_id]', @parent.id %>
+					</div>
+				<% end %>
+			<% end %>
+			<div class="form-group">
+				<%= f.label :phone %><br />
+				<%= f.text_field :phone, class: "form-control required", 'data-name': "phone" %>
+			</div>
+			<div class="form-group">
+				<%= f.label :email %>
+				<%= f.text_field :email, class: "form-control required", 'data-name': "email" %>
+			</div>
+			<div class="form-group">
+				<%= f.label :name %>
+				<%= f.text_field :name, class: "form-control required", 'data-name': "name" %>
+			</div>
+			<div class="form-group">
+				<%= f.label :type %>
+				<%= f.text_field :type, class: "form-control required volunteer_type", 'data-name': "type of volunteer" %>
+			</div>
+			<div class="parent">
+				<div class="dynamic_data">
+				</div>
+			</div>
+			<%= f.submit "Proceed to Tab2", class: "btn submit1 btn-primary" %>
+		<% end %>
+
+	</div>
+	<div id="menu1" class="tab-pane fade tab1">
+		<%= form_for [@volunteer] ,html: {role: "form"} do |f| %>
+			<div class="parent">
+				<div class="dynamic_data">
+				</div>
+			</div>
+			<%= hidden_field_tag(:tab, 'tab2') %>
+			<%= f.submit "Proceed to Tab3", class: "btn submit2 btn-primary" %>
+		<% end %>
+	</div>
+	<div id="menu2" class="tab-pane fade tab2">
+		<%= form_for [@volunteer] ,html: {role: "form"} do |f| %>
+			<div class="parent">
+				<div class="dynamic_data">
+				</div>
+			</div>
+			<%= hidden_field_tag(:volunteer, {tab: 'tab3'}) %>
+			<%= f.submit "Submit", class: "btn submit3 btn-primary" %>
+		<% end %>
+	</div>
+</div>
+
+
+
+
+
+<%= javascript_tag do %>
+	var QueryString = function() {
+		var query_string = {};
+		var query = window.location.search.substring(1);
+		var vars = query.split("&");
+		for (var i=0; i < vars.length; i++) {
+			var pair = vars[i].split("=");
+			if (typeof query_string[pair[0]] === "undefined") {
+				query_string[pair[0]] = decodeURIComponent(pair[1]);
+			} else if (typeof query_string[pair[0]] === "string") {
+				var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+				query_string[pair[0]] = arr;
+			} else {
+				query_string[pair[0]].push(decodeURIComponent(pair[1]));
+			}
+		} 
+		return query_string;
+	}();
+
+	$(document).ready(function(){
+		if(QueryString.tab!=undefined){
+			$('.tab-pane').removeClass('active');
+			if(QueryString.tab==1){
+				$('.nav-tabs a[href=#home]').tab('show');
+			}else if(QueryString.tab==2){
+				$('.nav-tabs a[href=#menu1]').tab('show');
+			}else{
+				$('.nav-tabs a[href=#menu2]').tab('show');
+			}
+		}
+		$('.volunteer_type').select2({
+			multiple: false,
+			data: [{id: "individual", text: "Individual"}, {id: "corporate", text: "Corporate"}, {id: "social", text: "Social"}]
+		});
+		if(<%= @is_show %>){
+			$('.submit1').addClass('hidden');
+			$('.submit2').addClass('hidden');
+			$('.submit3').addClass('hidden');
+			$('.volunteer_type').prop('disabled', true);
+		}
+		var new_obj = <%= raw @fields.to_json %>;
+		for(t_count = 0; t_count < new_obj.length; t_count++){
+			var obj = new_obj[t_count];
+			for(count = 0; count < obj.length; count++){
+				$parent = $('.tab'+t_count);
+				_id = Math.floor((Math.random()*10000002000000));
+				var val = obj[count];
+				var vol_type = "<%= @volunteer.type %>";
+				if(vol_type=="corporate" && !val.include_in_corporate){
+					continue;
+				}else if(vol_type=="social" && !val.include_in_social){
+					continue;
+				}else if(vol_type=="individual" && !val.include_in_individual){
+					continue;
+				}
+				if(val.required){
+					var required = "required";
+				}else{
+					var required = "";
+				}
+				if(val.type=="boolean"){
+						html = '<div class="form-group">\
+							<label for="volunteer_email">'+val.name+'</label>\
+							<input class="form-control bool form_el '+required+'" id='+_id+' placeholder="'+val.name+'" type="text" data-name="'+val.name+'" name="volunteer[dynamic_fields]['+val.name+']">\
+						</div>';
+					$parent.find('.dynamic_data').after(html);
+					$parent.find("#"+_id).select2({
+						multiple: false,
+						data: [{id: "false", text: "No"}, {id: "true", text: "Yes"}]
+					});
+				}else if(val.type=="single_select"){
+					html = '<div class="form-group">\
+							<label for="volunteer_email">'+val.name+'</label>\
+							<input class="form-control ss form_el '+required+'" data-val='+val.data+' id='+_id+' placeholder="'+val.name+'" data-name="'+val.name+'" type="text" name="volunteer[dynamic_fields]['+val.name+']">\
+						</div>'
+					$parent.find('.dynamic_data').after(html);
+					$self = $parent.find("#"+_id);
+					var construct = [];
+					for(c = 0; c < val.data.split(",").length; c++){
+						var d = val.data.split(",")[c];
+						construct.push({id: d, text: d});
+					}
+					$self.select2({
+						multiple: false,
+						data: construct
+					});
+				}else if(val.type=="multi_select"){
+					html = '<div class="form-group">\
+							<label for="volunteer_email">'+val.name+'</label>\
+							<input class="form-control ss form_el '+required+'" data-val='+val.data+' id='+_id+' placeholder="'+val.name+'" data-name="'+val.name+'" type="text" name="volunteer[dynamic_fields]['+val.name+']">\
+						</div>'
+					$parent.find('.dynamic_data').after(html);
+					$self = $parent.find("#"+_id);
+					var construct1 = [];
+					for(c = 0; c < val.data.split(",").length; c++){
+						var d = val.data.split(",")[c];
+						construct1.push({id: d, text: d});
+					}
+					$self.select2({
+						multiple: true,
+						data: construct1,
+						initSelection: function(element, callback){
+							var d = <%= raw @volunteer.dynamic_fields.to_json %>[val.name];
+							var results = [];
+							for(i=0; i < d.split(",").length; i++){
+								results.push({ id: d.split(",")[i], text: d.split(",")[i] });
+							}
+							callback(results);
+						}
+					});
+				}else{
+					html = '<div class="form-group">\
+							<label for="volunteer_email">'+val.name+'</label>\
+							<input class="form-control ss form_el" data-val='+val.data+' required="'+required+'" id='+_id+' data-name="'+val.name+'" placeholder="'+val.name+'" type="text" name="volunteer[dynamic_fields]['+val.name+']">\
+						</div>';
+					$parent.find('.dynamic_data').after(html);
+				}
+				if(<%= @is_show %> || <%= @is_edit %>){
+					if(val.type!="text"){
+						$parent.find("#"+_id).select2("val", <%= raw @volunteer.dynamic_fields.to_json %>[val.name]);
+					}else{
+						$parent.find("#"+_id).val(<%= raw @volunteer.dynamic_fields.to_json %>[val.name]);
+					}
+					if(<%= @is_show %>){
+						$parent.find("#"+_id).prop('disabled', true);
+					}
+				}
+			}
+		}
+		
+		$('.submit1').click(function(e){
+			var inputs = $('.tab0').find('.required');
+			for(count = 0; count < inputs.length; count++){
+				if($(inputs[count]).val()=="" && $(inputs[count]).data('name')!=undefined){
+					e.preventDefault();
+					alert("" + $(inputs[count]).data('name') + " cannot empty");
+				}
+			}
+		});
+		$('.submit2').click(function(e){
+			var inputs = $('.tab1').find('.required');
+			for(count = 0; count < inputs.length; count++){
+				if($(inputs[count]).val()=="" && $(inputs[count]).data('name')!=undefined){
+					e.preventDefault();
+					alert("" + $(inputs[count]).data('name') + " cannot empty");
+				}
+			}
+		});
+		$('.submit3').click(function(e){
+			var inputs = $('.tab2').find('.required');
+			for(count = 0; count < inputs.length; count++){
+				if($(inputs[count]).val()=="" && $(inputs[count]).data('name')!=undefined){
+					e.preventDefault();
+					alert("" + $(inputs[count]).data('name') + " cannot empty");
+				}
+			}
+		});
+	});
+<% end %>

@@ -12,6 +12,10 @@
 		<%= f.text_field :data, class: "form-control", placeholder: "Data" %>
 	</div>
 	<div class="form-group">
+		<%= f.label :tab %>
+		<%= f.text_field :tab, class: "form-control", placeholder: "Data" %>
+	</div>
+	<div class="form-group">
 		<%= f.label :required, "Is this a required field?" %>
 		<%= f.text_field :required, class: "form-control" %>
 	</div>
@@ -46,7 +50,7 @@
 		});
 		$('input[name="field[tab]"]').select2({
 			multiple: false,
-			data: [{id: "1", text: "1"}, {id: "2", text: "2"}, {id: "3", text: "3"}]
+			data: [{id: 1, text: "1"}, {id: 2, text: "2"}, {id: 3, text: "3"}]
 		});
 		$('input[name="field[is_active]"]').select2({
 			multiple: false,
