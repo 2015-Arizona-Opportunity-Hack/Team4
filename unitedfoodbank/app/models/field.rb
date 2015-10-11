@@ -5,7 +5,6 @@ class Field
  	field :name, type: String
 	field :type, type: String
 	field :required, type: Boolean
-	field :category, type: String
 	field :tab, type: Integer, default: 1
 	field :is_active, type: Boolean, default: false
 	field :include_in_individual, type: Boolean, default: true
