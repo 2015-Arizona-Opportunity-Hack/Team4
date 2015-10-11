@@ -43,6 +43,11 @@ class VolunteersController < ActionController::Base
 
 	def show
 		@volunteer = Volunteer.find(params[:id])
+		if(@volunteer.social_parent.present?)
+			@volunteer.social_parent
+		elsif(@volunteer.corporate_parent.present?)
+			@parent = @volunteer.corporate_parent
+		end
 		@fields = Field.where(is_active: true)
 		@is_show = true
 	end

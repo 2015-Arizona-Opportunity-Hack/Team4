@@ -112,7 +112,11 @@
 				$('.dynamic_data').after(html);
 			}
 			if(<%= @is_show %>){
-				$('.parent').find("#"+_id).select2("val", <%= raw @volunteer.dynamic_fields.to_json %>[val.name]);
+				if(val.type!="text"){
+					$('.parent').find("#"+_id).select2("val", <%= raw @volunteer.dynamic_fields.to_json %>[val.name]);
+				}else{
+					$('.parent').find("#"+_id).val(<%= raw @volunteer.dynamic_fields.to_json %>[val.name]);
+				}
 				$('.parent').find("#"+_id).prop('disabled', true);
 			}
 		}

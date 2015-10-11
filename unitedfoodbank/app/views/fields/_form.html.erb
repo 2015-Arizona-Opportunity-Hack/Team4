@@ -38,32 +38,7 @@
 	$(document).ready(function(){
 		$('input[name="field[type]"]').select2({
 			multiple: false,
-			data: [{id: "boolean", text: "Boolean"}, {id: "text", text: "Text"}]
-		});
-		$('input[name="field[required]"]').select2({
-			multiple: false,
-			data: [{id: "false", text: "No"}, {id: "true", text: "Yes"}]
-		});
-		$('input[name="field[tab]"]').select2({
-			multiple: false,
-			data: [{id: "1", text: "1"}, {id: "2", text: "2"}, {id: "3", text: "3"}]
-		});
-		$('input[name="field[is_active]"]').select2({
-			multiple: false,
-			data: [{id: "false", text: "No"}, {id: "true", text: "Yes"}]
-		});
-
-		$('input[name="field[include_in_individual]"]').select2({
-			multiple: false,
-			data: [{id: "false", text: "No"}, {id: "true", text: "Yes"}]
-		});
-		$('input[name="field[include_in_corporate]"]').select2({
-			multiple: false,
-			data: [{id: "false", text: "No"}, {id: "true", text: "Yes"}]
-		});
-		$('input[name="field[include_in_social]"]').select2({
-			multiple: false,
-			data: [{id: "false", text: "No"}, {id: "true", text: "Yes"}]
+			data: [{id: "boolean", text: "Boolean"}, {id: "text", text: "Text"}, {id: "single_select", text: "Single Select"}, {id: "multi_select", text: "Multi Select"}]
 		});
 		$('input[name="field[required]"]').select2({
 			multiple: false,
