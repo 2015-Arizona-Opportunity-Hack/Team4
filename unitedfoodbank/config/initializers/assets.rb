@@ -13,4 +13,4 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.enabled = true
 Rails.application.config.assets.paths << "#{Rails.root}/app/assets/templates"
 Rails.application.config.assets.paths << "#{Rails.root}/app/assets/fonts"
-Rails.application.config.assets.precompile += %w( fields.js fields.css filters.js)
+Rails.application.config.assets.precompile += %w( fields.js fields.css filters.js filters.css)

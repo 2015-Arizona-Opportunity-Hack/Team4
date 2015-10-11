@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :filters
   get 'search' => 'home#search'
 
+  get 'filters/get_data' => 'filters#get_data'
+
   # Example of regular route:
   #   get 'tanmay' => 'test#meth'
 
