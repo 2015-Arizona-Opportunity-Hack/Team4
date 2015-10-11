@@ -1,8 +1,18 @@
-<select id="example-getting-started" multiple="multiple">
-    <option value="cheese">Cheese</option>
-    <option value="tomatoes">Tomatoes</option>
-    <option value="mozarella">Mozzarella</option>
-    <option value="mushrooms">Mushrooms</option>
-    <option value="pepperoni">Pepperoni</option>
-    <option value="onions">Onions</option>
-</select>
+<table class="table table-hover">
+	<tr>
+		<th width="20%">Name</th>
+		<th width="20%">Type</th>
+		<th width="20%">Active</th>
+		<th width="20%" class="actions">Actions</th>
+	</tr>
+	<% @fields.each do |field| %>
+		<tr>
+			<td><%= field.name %></td>
+			<td><%= field.type %></td>
+			<td class="active_inactive"><%= field.is_active? ? "yes" : "no" %></td>
+			<td class="actions">
+				<%= link_to "Edit", edit_field_path(field), class: "btn btn-small btn-success" %>
+			</td>
+		</tr>
+	<%end%>
+</table>
