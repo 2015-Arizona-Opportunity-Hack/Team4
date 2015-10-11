@@ -4,6 +4,7 @@ class Field
 
  	field :name, type: String
 	field :type, type: String
+	field :data, type: String, default: ''
 	field :required, type: Boolean
 	field :tab, type: Integer, default: 1
 	field :is_active, type: Boolean, default: false

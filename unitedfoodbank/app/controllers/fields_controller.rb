@@ -41,7 +41,7 @@ class FieldsController < ActionController::Base
 	private
 
 	def field_params
-		params.require(:field).permit(:name, :type, :required, :tab, :is_active, :include_in_individual, :include_in_corporate, :include_in_social)
+		params.require(:field).permit(:name, :type, :data, :required, :tab, :is_active, :include_in_individual, :include_in_corporate, :include_in_social)
 	end
 	
 end
