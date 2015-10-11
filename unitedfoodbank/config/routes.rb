@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :volunteers
 
+  resources :filters
+
   # Example of regular route:
   #   get 'tanmay' => 'test#meth'
 
