@@ -7,6 +7,19 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="navbar navbar-default" role="navigation" id="main_navigation">
+  <ul class="nav navbar-nav">
+    <li data-controller="fields" class="default_tabs">
+      <a href="<%= fields_path %>">Form Fields</a>
+    </li>
+    <li data-controller="fields" class="default_tabs">
+      <a href="<%= volunteers_path %>">Volunteer Data</a>
+    </li>
+    <li data-controller="fields" class="default_tabs">
+      <a href="<%= filters_path %>">Filter Data</a>
+    </li>
+  </ul>
+</div>
 <div id="content" class="col-md-10 col-sm-11">
   <%= yield %>
 </div>
