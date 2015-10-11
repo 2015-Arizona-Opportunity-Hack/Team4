@@ -7,6 +7,10 @@
 		<%= f.label :email %>
 		<%= f.text_field :email, class: "form-control required", 'data-name': "email" %>
 	</div>
+	<div class="form-group">
+		<%= f.label :type %>
+		<%= f.text_field :type, class: "form-control required volunteer_type", 'data-name': "type of volunteer" %>
+	</div>
 	<div class="parent">
 		<div class="dynamic_data">
 		</div>
@@ -16,8 +20,13 @@
 
 <%= javascript_tag do %>
 	$(document).ready(function(){
+		$('.volunteer_type').select2({
+			multiple: false,
+			data: [{id: "individual", text: "Individual"}, {id: "corporate", text: "Corporate"}, {id: "social", text: "Social"}]
+		});
 		if(<%= @is_show %>){
 			$('.submit').addClass('hidden');
+			$('.volunteer_type').prop('disabled', true);
 		}
 		var obj = <%= raw @fields.to_json %>;
 		for(count = 0; count < obj.length; count++){

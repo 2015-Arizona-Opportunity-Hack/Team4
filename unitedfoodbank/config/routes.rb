@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :volunteers
 
   resources :filters
+  get 'search' => 'home#search'
 
   # Example of regular route:
   #   get 'tanmay' => 'test#meth'

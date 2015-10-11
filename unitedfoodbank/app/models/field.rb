@@ -6,7 +6,6 @@ class Field
 	field :type, type: String
 	field :data, type: String, default: ''
 	field :required, type: Boolean
-	field :tab, type: Integer, default: 1
 	field :is_active, type: Boolean, default: false
 	field :include_in_individual, type: Boolean, default: true
 	field :include_in_corporate, type: Boolean, default: true

@@ -10,25 +10,18 @@ class VolunteersController < ActionController::Base
 		@volunteer = Volunteer.new(volunteer_params)
 		respond_to do |format|
 			if @volunteer.save
-				flash[:success_message] = "Field was successfully created."
-				format.html { redirect_to volunteers_path}
+				flash[:success_message] = "Volunteer was successfully created."
+				format.html { redirect_to volunteers_path }
 				format.json { render json: @volunteer, status: :created}
 			else
-				format.html { render action: "new" }
+				flash[:error] = "Volunteer already present"
+				format.html {render action: "new"}
 				format.json { render json: @volunteer.errors.full_messages, status: :unprocessable_entity }
 			end
 		end
 	end
 
 	def new
-		@volunteer = Volunteer.new
-		@fields = Field.where(is_active: true)
-	end
-
-	private
-
-	def volunteer_params
-		params.require(:volunteer).permit(:email, :phone, :dynamic_fields)
 		@volunteer = Volunteer.new
 		@fields = Field.where(is_active: true)
 		@is_show = false
